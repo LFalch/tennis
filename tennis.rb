@@ -4,12 +4,13 @@ require 'gosu'
 
 # These are nessecary for THIS code/file to cooperate with the other
 # files/codes
-require_relative 'player.rb'
-require_relative 'player2.rb'
-require_relative 'ball.rb'
-require_relative 'wall.rb'
-require_relative 'bot.rb'
-require_relative 'score.rb'
+require_relative 'player'
+require_relative 'player2'
+require_relative 'ball'
+require_relative 'wall'
+require_relative 'bot'
+require_relative 'score'
+require_relative 'textbox'
 
 # This adds the actual window to the game, which in this case works as a
 # controller!
@@ -25,6 +26,7 @@ class GameWindow < Gosu::Window
 
     @player    = Player.new(self)
     @player2   = Player2.new(self)
+    @help      = TextBox.new(self, "Press O to activate 2P", 193, 500)
     @bot       = Bot.new(self)
     @ball      = Ball.new(self)
     @wall      = Wall.new(self)
@@ -64,6 +66,7 @@ class GameWindow < Gosu::Window
     @ball.draw
     @wall.draw
     @score.draw
+    @help.draw
   end
 
   # This checks when you press ESC

@@ -15,7 +15,7 @@ class Ball
   end
 
   def reset
-    @y     = 200
+    @y     = 150
     @vel_x = 0
     @vel_y = 0
     @timer = 200
@@ -27,7 +27,7 @@ class Ball
   def move
     @x += @vel_x
     @y += @vel_y
-    @vel_y += 0.1       # Gravity pulls the ball down.
+    @vel_y += 0.12       # Gravity pulls the ball down.
 
     # If ball moves out of screen, reset ball and update scores.
     if @y > @window.height

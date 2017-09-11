@@ -175,6 +175,12 @@ class Ball
   end
 
   def draw
-    @image.draw(@x - @radius, @y - @radius, 0)
+    colour = 0xff_ffffff
+    # Make ball blink
+    if @timer <= 100 && @timer > 0 && @timer / 8 & 2 == 0
+      colour = 0x77_ffffff
+    end
+
+    @image.draw(@x - @radius, @y - @radius, 0, 1, 1, colour)
   end
 end

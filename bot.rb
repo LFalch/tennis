@@ -31,6 +31,6 @@ class Bot
   end
 
   def draw
-    @image.draw(@x - @radius, @y - @radius, 0)
+    @image.draw(@x - @radius, @y - @radius, 0, 1, 1, 0xff_00ff00)
   end
 end

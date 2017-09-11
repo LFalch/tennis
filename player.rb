@@ -44,6 +44,6 @@ class Player
   end
 
   def draw
-    @image.draw(@x - @radius, @y - @radius, 0)
+    @image.draw(@x - @radius, @y - @radius, 0, 1, 1, 0xff_0000ff)
   end
 end

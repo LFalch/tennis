@@ -15,6 +15,6 @@ class Wall
   end
 
   def draw
-    @image.draw(@x, @y, 0)
+    @image.draw(@x, @y, 0, 1, 1, 0xff_779966)
   end
 end

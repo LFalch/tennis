@@ -5,6 +5,7 @@ require 'gosu'
 # These are nessecary for THIS code/file to cooperate with the other
 # files/codes
 require_relative 'player.rb'
+require_relative 'player2.rb'
 require_relative 'ball.rb'
 require_relative 'wall.rb'
 require_relative 'bot.rb'
@@ -13,7 +14,7 @@ require_relative 'score.rb'
 # This adds the actual window to the game, which in this case works as a
 # controller!
 class GameWindow < Gosu::Window
-  attr_reader :player, :wall, :ball, :bot, :score
+  attr_reader :player, :player2, :wall, :ball, :bot, :score, :twoplayer
   attr_accessor :game_over
 
   # This is the event that occurs when you start the game, like when the object
@@ -23,14 +24,16 @@ class GameWindow < Gosu::Window
     self.caption = 'Tennis Game'
 
     @player    = Player.new(self)
+    @player2   = Player2.new(self)
     @bot       = Bot.new(self)
     @ball      = Ball.new(self)
     @wall      = Wall.new(self)
     @score     = Score.new(self)
+    @twoplayer = false
     @game_over = false
 
     @music     = Gosu::Song.new('media/rick.ogg')
-    @music.play(true)
+    # @music.play(true)
   end
 
   # This event is checked 60 times per second.
@@ -39,7 +42,11 @@ class GameWindow < Gosu::Window
     if not @game_over
       # Move the game objects around.
       @player.update
-      @bot.update
+      if @twoplayer
+        @player2.update
+      else
+        @bot.update
+      end
       @ball.update
       # No need to call update on wall, since it doesn't move :-)
     end
@@ -49,7 +56,11 @@ class GameWindow < Gosu::Window
   # second...
   def draw
     @player.draw
-    @bot.draw
+    if @twoplayer
+      @player2.draw
+    else
+      @bot.draw
+    end
     @ball.draw
     @wall.draw
     @score.draw
@@ -59,6 +70,10 @@ class GameWindow < Gosu::Window
   def button_down(id)
     if id == Gosu::KbEscape
       close
+    end
+    if id == Gosu::KbO && (not @twoplayer)
+      @twoplayer = true
+      @player.second_player_mode
     end
     if id == Gosu::KbR && @game_over
       @ball.reset
@@ -70,4 +85,3 @@ end
 
 window = GameWindow.new
 window.show
-

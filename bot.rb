@@ -19,8 +19,8 @@ class Bot
     @vel_x = aim - @x
 
     # Limit the speed of the bot.
-    @vel_x = [3, @vel_x].min
-    @vel_x = [-3, @vel_x].max
+    @vel_x = [4, @vel_x].min
+    @vel_x = [-4, @vel_x].max
 
     # Move the bot.
     @x += @vel_x

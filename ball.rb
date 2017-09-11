@@ -72,12 +72,18 @@ class Ball
       collision = true
     end
 
-    # Check for collision with bot
-    if Gosu.distance(@window.bot.x, @window.bot.y, @x, @y) <=
-       @window.bot.radius + @radius
-      adjust_ball(@window.bot.x, @window.bot.y,
-                  @window.bot.radius + @radius)             # Move ball 'out' of the bot.
-      collision_point(@window.bot.x, @window.bot.y)         # Adjust direction.
+    if @window.twoplayer
+      col2 = @window.player2
+    else
+      col2 = @window.bot
+    end
+
+    # Check for collision with bot or player 2
+    if Gosu.distance(col2.x, col2.y, @x, @y) <=
+       col2.radius + @radius
+      adjust_ball(col2.x, col2.y,
+                  col2.radius + @radius)       # Move ball 'out' of the bot or player.
+      collision_point(col2.x, col2.y)         # Adjust direction.
       collision = true
     end
 
@@ -172,4 +178,3 @@ class Ball
     @image.draw(@x - @radius, @y - @radius, 0)
   end
 end
-
